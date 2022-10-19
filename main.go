@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"learn_db/app/models"
+	"learn_db/pkg/routes"
 	"learn_db/platform/database"
 	"log"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 )
 
@@ -19,20 +20,17 @@ func main() {
 	variable, err := database.New()
 
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Fatal(fmt.Println(err))
+	} else {
+		fmt.Println("Database connected!")
 	}
 
-	interf := models.Person{
-		FirstName: "Huy",
-		LastName:  "Nguyen",
-		Age:       20,
+	app := fiber.New()
+
+	if err := app.Listen(":1206"); err != nil {
+		log.Printf("Oops... Server is not running! Reason: %v", err)
 	}
 
-	variable.InsertObject("Person", interf, false)
-
-	// var s string
-	//s = "\"string\""
-	s := "string"
-	log.Fatal(fmt.Println(s))
+	routes.PublicRoutes(app, variable)
 
 }

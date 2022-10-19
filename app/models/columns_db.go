@@ -1,16 +1,10 @@
 package models
 
-type Columns struct {
-	FieldName  string `db:"fieldname" json:"field_name"`
-	DataType   string `db:"datatype" json:"data_type"`
-	MaxLength  int    `db:"maxlength" json:"max_length"`
-	IsIdentity string `db:"isidentity" json:"is_identity"`
-	IsNullable string `db:"isnullable" json:"is_nullable"`
-	Extra      string `db:"extra" json:"extra"`
-}
+import "time"
 
 type Person struct {
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Age       int    `json:"age"`
+	FirstName string    `db:"first_name,omitempty" json:"first_name,omitempty"`
+	LastName  string    `db:"last_name,omitempty" json:"last_name,omitempty"`
+	Age       int       `db:"age,omitempty" json:"age,omitempty"`
+	CreateAt  time.Time `db:"create_at,omitempty" json:"create_at,omitempty"`
 }
