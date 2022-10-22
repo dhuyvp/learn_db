@@ -8,13 +8,13 @@ import (
 )
 
 func PublicRoutes(app *fiber.App, variable *database.Variable) {
-	groupAPI := app.Group("/group/")
+	groupAPI := app.Group("/api")
 	route := groupAPI.Group("/route")
 
-	querySelect := "SELECT * FROM Cities;"
-	route.Post("", controllers.SelectObject(variable, &querySelect))
+	route.Post("/select", controllers.QuerySelect(variable))
+	route.Post("/insert", controllers.QueryInsert(variable))
 
-	route.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Succesfull!")
+	route.Get("", func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusOK).SendString("Successfull!")
 	})
 }

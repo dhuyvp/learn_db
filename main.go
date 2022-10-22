@@ -27,10 +27,10 @@ func main() {
 
 	app := fiber.New()
 
+	routes.PublicRoutes(app, variable)
+
 	if err := app.Listen(":1206"); err != nil {
 		log.Printf("Oops... Server is not running! Reason: %v", err)
 	}
-
-	routes.PublicRoutes(app, variable)
 
 }
